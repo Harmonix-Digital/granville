@@ -8,13 +8,37 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+
+  --font-sans: var(--font-sora), sans-serif;
+  --font-manrope: var(--font-manrope), sans-serif;
+}
+
+@theme {
+  /* Simple colors */
+  --color-gray: #C6CCD0;
+  --color-black: #0c141a;
+  --color-textwhite: #F7F9FB;
+  --color-blue: #6AC8EE;
+  --color-darkblue: #2484B5;
+  --color-graywhite: #9FABB2;
+
+
+  --color-accent: #f43f5e;
+  --color-primary-50: #f0f9ff;
+  --color-primary-500: #0284c7;
+  --color-primary-900: #0c4a6e;
+}
+
+@theme {
+  --shadow-cyan-glow: 0 18px 48px -18px rgba(53, 172, 230, 0.55);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0C141A;
     --foreground: #ededed;
   }
 }
@@ -22,5 +46,31 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+  max-width: 1220px;
+  padding:0 20px;
+  margin:0 auto;
+}
+
+@import "tailwindcss";
+
+/* Define Infinite Scrolling Keyframes */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
