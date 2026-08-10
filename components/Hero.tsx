@@ -53,7 +53,7 @@ const Hero = () => {
           {/* Right Action Buttons Column */}
           <div className="flex flex-col gap-3 sm:w-[220px]">
             {/* Primary Button */}
-            <Link href="#tickets" className="w-full">
+            <Link href="https://www.eventbrite.ca/e/granville-dj-festival-saturday-september-5th-sunday-september-6th-tickets-1997096193475?aff=oddtdtcreator" className="w-full" target='_blank'>
               <button
                 type="button"
                 className="w-full bg-[#28A9E0] py-4 text-center text-xs font-extrabold uppercase tracking-[0.8px] text-slate-950 transition-all hover:brightness-110 active:scale-95"

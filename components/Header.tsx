@@ -54,7 +54,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <Link href="#tickets">
+              <Link href="https://www.eventbrite.ca/e/granville-dj-festival-saturday-september-5th-sunday-september-6th-tickets-1997096193475?aff=oddtdtcreator" target="_blank">
                 <button
                   type="button"
                   className="
