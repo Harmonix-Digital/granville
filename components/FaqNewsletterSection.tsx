@@ -62,6 +62,70 @@ export default function FaqNewsletterSection() {
     }
   };
 
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+  
+  const handleNewsletterSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+  
+    if (isSubmitting) return;
+  
+    setIsSubmitting(true);
+  
+    setStatus({
+      type: null,
+      message: "",
+    });
+  
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "Unable to subscribe. Please try again."
+        );
+      }
+  
+      setStatus({
+        type: "success",
+        message: "Thanks! You're on the list.",
+      });
+  
+      setEmail("");
+    } catch (error) {
+      console.error("Newsletter error:", error);
+  
+      setStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
   return (
     <section id="faq" className="relative w-full bg-[#0b1118] px-4 py-16 text-white sm:px-8 lg:px-12">
       <div className="mx-auto max-w-7xl">
@@ -153,22 +217,75 @@ export default function FaqNewsletterSection() {
 
           {/* Email Subscription Form */}
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleNewsletterSubmit}
             className="mt-8 flex w-full max-w-md flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <input
               type="email"
               placeholder="you@email.com"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-full border border-slate-800 bg-[#141d26] px-6 py-3.5 text-xs text-white placeholder-slate-500 outline-none transition-colors focus:border-sky-500 sm:w-72"
             />
             <button
               type="submit"
               className="w-full shrink-0 rounded-full bg-linear-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] px-8 py-3.5 text-xs font-extrabold text-slate-950 shadow-lg transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95 sm:w-auto"
+              
             >
               Join the list
             </button>
+
+            
+
           </form>
+          <div className="mt-4">
+            {status.type && (
+                <p
+                  className={
+                    status.type === "success"
+                      ? "text-green-400"
+                      : "text-red-400"
+                  }
+                >
+                  {status.message}
+                </p>
+              )}
+
+          </div>
+
+          {/* <form onSubmit={handleNewsletterSubmit}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email address"
+              required
+              disabled={isSubmitting}
+            />
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
+            </button>
+
+            {status.type && (
+              <p
+                className={
+                  status.type === "success"
+                    ? "text-green-400"
+                    : "text-red-400"
+                }
+              >
+                {status.message}
+              </p>
+            )}
+          </form> */}
+
+
+
         </div>
 
       </div>
