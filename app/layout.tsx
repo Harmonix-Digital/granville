@@ -31,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         
         
-        <EventbriteWidget />
+        {/* <EventbriteWidget /> */}
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4FCJPH3NP6"
