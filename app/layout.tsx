@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Manrope } from "next/font/google";
 import "./globals.css";
-import EventbriteWidget from "@/components/EventbriteWidget";
 import Script from "next/script";
 import TicketProvider from "@/components/TicketProvider";
 
