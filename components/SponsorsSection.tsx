@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface SponsorLogo {
   name: string;
@@ -92,18 +93,23 @@ export default function SponsorsSection() {
 
             {/* Right Action Buttons Column */}
             <div className="flex flex-col gap-3.5 sm:w-80 sm:shrink-0">
-              <button
-                type="button"
-                className="w-full rounded-full bg-gradient-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] py-3.5 text-xs font-extrabold text-slate-950 shadow-lg transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95 cursor-pointer"
-              >
-                Request the partner deck
-              </button>
-              <button
-                type="button"
-                className="w-full rounded-full border border-slate-700 bg-[#0f1721]/80 py-3.5 text-xs font-extrabold text-textwhite shadow-md backdrop-blur-sm transition-all hover:border-slate-500 hover:bg-slate-800/80 active:scale-95 cursor-pointer"
-              >
-                Talk to the team
-              </button>
+              <Link href="#contact">
+                <button
+                  type="button"
+                  className="w-full rounded-full bg-gradient-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] py-3.5 text-xs font-extrabold text-slate-950 shadow-lg transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95 cursor-pointer"
+                >
+                  Request the partner deck
+                </button>
+              </Link>
+              
+              <Link href="#contact">
+                <button
+                  type="button"
+                  className="w-full rounded-full border border-slate-700 bg-[#0f1721]/80 py-3.5 text-xs font-extrabold text-textwhite shadow-md backdrop-blur-sm transition-all hover:border-slate-500 hover:bg-slate-800/80 active:scale-95 cursor-pointer"
+                >
+                  Talk to the team
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -17,10 +17,10 @@ const exploreLinks: NavLink[] = [
 ];
 
 const followLinks: NavLink[] = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "TikTok", href: "https://tiktok.com" },
-  { label: "Facebook", href: "https://facebook.com" },
-  { label: "SoundCloud", href: "https://soundcloud.com" },
+  { label: "Instagram", href: "https://www.instagram.com/granvilledjfestival" },
+  // { label: "TikTok", href: "https://tiktok.com" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61592912770240" },
+  // { label: "SoundCloud", href: "https://soundcloud.com" },
 ];
 
 export default function Footer() {

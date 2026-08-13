@@ -1,7 +1,10 @@
+'use client'
 import React from "react";
 import Image from "next/image";
+import { useTickets } from "./TicketProvider";
 
 export default function TicketsSection() {
+  const { openTickets } = useTickets();
   return (
     <section id="tickets" className="relative w-full bg-[#0b1118] px-4 py-16 text-white sm:px-8 lg:px-12">
       <div className="mx-auto max-w-7xl">
@@ -85,6 +88,7 @@ export default function TicketsSection() {
               {/* Action Button */}
               <button
                 type="button"
+                onClick={openTickets}
                 className="w-full rounded-full bg-linear-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] py-3.5 text-sm font-extrabold text-slate-950 shadow-md transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95 cursor-pointer"
               >
                 Register &rarr;
@@ -156,6 +160,7 @@ export default function TicketsSection() {
               {/* Action Button */}
               <button
                 type="button"
+                onClick={openTickets}
                 className="w-full rounded-full bg-[#0c141d] py-3.5 text-sm font-extrabold text-white shadow-lg transition-all hover:scale-[1.02] hover:bg-slate-900 active:scale-95 cursor-pointer"
               >
                 Buy VIP Pass &rarr;
@@ -230,6 +235,7 @@ export default function TicketsSection() {
               {/* Action Button */}
               <button
                 type="button"
+                onClick={openTickets}
                 className="w-full rounded-full bg-gradient-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] py-3.5 text-sm font-extrabold text-slate-950 shadow-md transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95 cursor-pointer"
               >
                 Buy Weekend VIP Pass &rarr;
