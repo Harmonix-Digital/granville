@@ -16,20 +16,6 @@ const EVENTBRITE_SCRIPT =
 const EVENT_ID = "1997096193475";
 const CONTAINER_ID = `eventbrite-widget-container-${EVENT_ID}`;
 
-declare global {
-  interface Window {
-    EBWidgets?: {
-      createWidget: (options: {
-        widgetType: "checkout";
-        eventId: string;
-        iframeContainerId: string;
-        iframeContainerHeight?: number;
-        onOrderComplete?: () => void;
-      }) => void;
-    };
-  }
-}
-
 type TicketContextValue = {
   openTickets: () => void;
   closeTickets: () => void;
@@ -64,11 +50,14 @@ export default function TicketProvider({
     setIsOpen(false);
   }, []);
 
-  // Prevent background scrolling while modal is open
+  /**
+   * Lock body scroll while modal is open.
+   */
   useEffect(() => {
     if (!isOpen) return;
 
     const originalOverflow = document.body.style.overflow;
+
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -76,7 +65,9 @@ export default function TicketProvider({
     };
   }, [isOpen]);
 
-  // ESC closes modal
+  /**
+   * Close modal with Escape.
+   */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -93,15 +84,18 @@ export default function TicketProvider({
     };
   }, [isOpen, closeTickets]);
 
-  // Initialize Eventbrite once the script has loaded
+  /**
+   * Initialize Eventbrite once.
+   *
+   * IMPORTANT:
+   * The Eventbrite container remains mounted even when
+   * the modal is closed. This prevents the widget from
+   * being destroyed between opens.
+   */
   useEffect(() => {
-    if (!eventbriteLoaded || !isOpen || widgetInitialized) {
-      return;
-    }
-
-    if (!window.EBWidgets) {
-      return;
-    }
+    if (!eventbriteLoaded) return;
+    if (widgetInitialized) return;
+    if (!window.EBWidgets) return;
 
     window.EBWidgets.createWidget({
       widgetType: "checkout",
@@ -115,142 +109,204 @@ export default function TicketProvider({
     });
 
     setWidgetInitialized(true);
-  }, [eventbriteLoaded, isOpen, widgetInitialized]);
+  }, [eventbriteLoaded, widgetInitialized]);
 
   return (
-    <TicketContext.Provider value={{ openTickets, closeTickets }}>
+    <TicketContext.Provider
+      value={{
+        openTickets,
+        closeTickets,
+      }}
+    >
       {children}
 
+      {/* Eventbrite script */}
       <Script
         src={EVENTBRITE_SCRIPT}
         strategy="afterInteractive"
         onLoad={() => setEventbriteLoaded(true)}
       />
 
-      {isOpen && (
+      {/* 
+        Keep the Eventbrite container mounted permanently.
+        We only hide/show the modal wrapper.
+      */}
+      <div
+        className={
+          isOpen
+            ? "fixed inset-0 z-[9999]"
+            : "pointer-events-none invisible fixed inset-0 z-[-1] opacity-0"
+        }
+        aria-hidden={!isOpen}
+      >
+        {/* Backdrop */}
+        <button
+          type="button"
+          aria-label="Close tickets"
+          onClick={closeTickets}
+          className="
+            absolute
+            inset-0
+            cursor-default
+            bg-black/75
+            backdrop-blur-sm
+          "
+        />
+
+        {/* Modal */}
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="tickets-modal-title"
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            flex
+            max-h-[95vh]
+            w-[calc(100%-2rem)]
+            max-w-2xl
+            -translate-x-1/2
+            -translate-y-1/2
+            flex-col
+            overflow-hidden
+            rounded-2xl
+            border
+            border-white/10
+            bg-[#0b1118]
+            shadow-2xl
+            shadow-black/50
+            sm:w-[calc(100%-3rem)]
+          "
         >
-          {/* Backdrop */}
-          <button
-            type="button"
-            aria-label="Close tickets"
-            onClick={closeTickets}
-            className="absolute inset-0 cursor-default bg-black/75 backdrop-blur-sm"
-          />
-
-          {/* Modal */}
+          {/* Modal header */}
           <div
             className="
-              relative
-              z-10
               flex
-              max-h-[95vh]
-              w-full
-              max-w-2xl
-              flex-col
-              overflow-hidden
-              rounded-2xl
-              border
+              shrink-0
+              items-center
+              justify-between
+              border-b
               border-white/10
-              bg-[#0b1118]
-              shadow-2xl
-              shadow-black/50
+              px-5
+              py-4
+              sm:px-6
             "
           >
-            {/* Header */}
-            <div
-              className="
-                flex
-                shrink-0
-                items-center
-                justify-between
-                border-b
-                border-white/10
-                px-5
-                py-4
-                sm:px-6
-              "
-            >
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
-                  Granville DJ Festival
-                </p>
-
-                <h2
-                  id="tickets-modal-title"
-                  className="mt-1 text-lg font-bold text-white sm:text-xl"
-                >
-                  Get Your Tickets
-                </h2>
-              </div>
-
-              <button
-                type="button"
-                onClick={closeTickets}
-                aria-label="Close tickets modal"
+            <div>
+              <p
                 className="
-                  flex
-                  h-10
-                  w-10
-                  shrink-0
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  border-white/10
-                  bg-white/5
-                  text-slate-400
-                  transition
-                  hover:border-white/20
-                  hover:bg-white/10
-                  hover:text-white
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-cyan-400/50
+                  text-xs
+                  font-semibold
+                  uppercase
+                  tracking-[0.2em]
+                  text-cyan-400
                 "
               >
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 6l12 12M18 6L6 18"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
+                Tickets
+              </p>
+
+              <h2
+                id="tickets-modal-title"
+                className="
+                  mt-1
+                  text-lg
+                  font-bold
+                  text-white
+                  sm:text-xl
+                "
+              >
+                Get Your Tickets
+              </h2>
             </div>
 
-            {/* Eventbrite content */}
-            <div className="min-h-[425px] overflow-y-auto bg-white">
-              {!eventbriteLoaded && (
-                <div className="flex min-h-[425px] items-center justify-center">
-                  <div className="text-center">
-                    <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-cyan-500" />
+            <button
+              type="button"
+              onClick={closeTickets}
+              aria-label="Close tickets modal"
+              className="
+                flex
+                h-10
+                w-10
+                shrink-0
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-white/10
+                bg-white/5
+                text-slate-400
+                transition
+                hover:border-white/20
+                hover:bg-white/10
+                hover:text-white
+                focus:outline-none
+                focus:ring-2
+                focus:ring-cyan-400/50
+              "
+            >
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          </div>
 
-                    <p className="mt-4 text-sm text-slate-500">
-                      Loading tickets...
-                    </p>
-                  </div>
-                </div>
-              )}
-
+          {/* Eventbrite */}
+          <div
+            className="
+              min-h-[425px]
+              overflow-y-auto
+              bg-white
+            "
+          >
+            {!eventbriteLoaded && (
               <div
-                id={CONTAINER_ID}
-                className="w-full"
-              />
-            </div>
+                className="
+                  flex
+                  min-h-[425px]
+                  items-center
+                  justify-center
+                "
+              >
+                <div className="text-center">
+                  <div
+                    className="
+                      mx-auto
+                      h-8
+                      w-8
+                      animate-spin
+                      rounded-full
+                      border-2
+                      border-slate-300
+                      border-t-cyan-500
+                    "
+                  />
+
+                  <p className="mt-4 text-sm text-slate-500">
+                    Loading tickets...
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* NEVER unmount this container */}
+            <div
+              id={CONTAINER_ID}
+              className="w-full"
+            />
           </div>
         </div>
-      )}
+      </div>
     </TicketContext.Provider>
   );
 }
