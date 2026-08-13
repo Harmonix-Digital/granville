@@ -1,8 +1,11 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTickets } from './TicketProvider'
 
 const Hero = () => {
+  const { openTickets } = useTickets();
   return (
     <section className="hero_section relative w-full bg-[#0b1118] px-4 pt-28 pb-16 text-white sm:px-8 lg:px-12">
       <div className="mx-auto max-w-7xl">
@@ -53,14 +56,15 @@ const Hero = () => {
           {/* Right Action Buttons Column */}
           <div className="flex flex-col gap-3 sm:w-[220px]">
             {/* Primary Button */}
-            <Link href="https://www.eventbrite.ca/e/granville-dj-festival-saturday-september-5th-sunday-september-6th-tickets-1997096193475?aff=oddtdtcreator" className="w-full" target='_blank'>
+            
               <button
                 type="button"
+                onClick={openTickets}
                 className="w-full bg-[#28A9E0] py-4 text-center text-xs font-extrabold uppercase tracking-[0.8px] text-slate-950 transition-all hover:brightness-110 active:scale-95"
               >
                 Get tickets now
               </button>
-            </Link>
+
 
             {/* Secondary Outline Button */}
             <Link href="#lineup" className="w-full">

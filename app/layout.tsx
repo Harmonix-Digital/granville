@@ -3,6 +3,7 @@ import { Sora, Manrope } from "next/font/google";
 import "./globals.css";
 import EventbriteWidget from "@/components/EventbriteWidget";
 import Script from "next/script";
+import TicketProvider from "@/components/TicketProvider";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -28,10 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${sora.variable} ${manrope.variable} font-sora h-full antialiased`}
     >
       <body className=" min-h-full flex flex-col">
+      <TicketProvider>
         {children}
+      </TicketProvider>
         
-        
-        {/* <EventbriteWidget /> */}
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4FCJPH3NP6"

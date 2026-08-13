@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTickets } from "./TicketProvider";
+
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,6 +12,8 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const { openTickets } = useTickets();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-slate-800/50 bg-[#0b1118]/80 backdrop-blur-md transition-all">
@@ -54,8 +58,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <Link href="https://www.eventbrite.ca/e/granville-dj-festival-saturday-september-5th-sunday-september-6th-tickets-1997096193475?aff=oddtdtcreator" target="_blank">
+              
                 <button
+                  onClick={openTickets}
                   type="button"
                   className="
                     rounded-full 
@@ -73,7 +78,6 @@ const Header = () => {
                 >
                   Get Tickets
                 </button>
-              </Link>
             </li>
           </ul>
         </nav>
