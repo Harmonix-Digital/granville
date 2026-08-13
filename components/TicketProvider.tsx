@@ -42,16 +42,22 @@ export default function TicketProvider({
   const [eventbriteLoaded, setEventbriteLoaded] = useState(false);
   const [widgetInitialized, setWidgetInitialized] = useState(false);
 
+  /**
+   * Open the tickets modal
+   */
   const openTickets = useCallback(() => {
     setIsOpen(true);
   }, []);
 
+  /**
+   * Close the tickets modal
+   */
   const closeTickets = useCallback(() => {
     setIsOpen(false);
   }, []);
 
   /**
-   * Lock body scroll while modal is open.
+   * Prevent the page behind the modal from scrolling.
    */
   useEffect(() => {
     if (!isOpen) return;
@@ -66,7 +72,7 @@ export default function TicketProvider({
   }, [isOpen]);
 
   /**
-   * Close modal with Escape.
+   * Allow closing the modal with the Escape key.
    */
   useEffect(() => {
     if (!isOpen) return;
@@ -85,17 +91,21 @@ export default function TicketProvider({
   }, [isOpen, closeTickets]);
 
   /**
-   * Initialize Eventbrite once.
+   * Initialize Eventbrite only once.
    *
-   * IMPORTANT:
-   * The Eventbrite container remains mounted even when
-   * the modal is closed. This prevents the widget from
-   * being destroyed between opens.
+   * The Eventbrite container is intentionally kept mounted
+   * even when the modal is closed. This allows the same
+   * Eventbrite checkout to be opened again without
+   * recreating the widget.
    */
   useEffect(() => {
     if (!eventbriteLoaded) return;
     if (widgetInitialized) return;
     if (!window.EBWidgets) return;
+
+    const container = document.getElementById(CONTAINER_ID);
+
+    if (!container) return;
 
     window.EBWidgets.createWidget({
       widgetType: "checkout",
@@ -127,9 +137,13 @@ export default function TicketProvider({
         onLoad={() => setEventbriteLoaded(true)}
       />
 
-      {/* 
-        Keep the Eventbrite container mounted permanently.
-        We only hide/show the modal wrapper.
+      {/*
+        IMPORTANT:
+        The modal/container is ALWAYS mounted.
+
+        We only hide/show it using CSS.
+        This prevents the Eventbrite iframe from being
+        destroyed when the modal is closed.
       */}
       <div
         className={
@@ -179,7 +193,7 @@ export default function TicketProvider({
             sm:w-[calc(100%-3rem)]
           "
         >
-          {/* Modal header */}
+          {/* Modal Header */}
           <div
             className="
               flex
@@ -220,6 +234,7 @@ export default function TicketProvider({
               </h2>
             </div>
 
+            {/* Close Button */}
             <button
               type="button"
               onClick={closeTickets}
@@ -261,7 +276,7 @@ export default function TicketProvider({
             </button>
           </div>
 
-          {/* Eventbrite */}
+          {/* Eventbrite Checkout */}
           <div
             className="
               min-h-[425px]
@@ -269,6 +284,7 @@ export default function TicketProvider({
               bg-white
             "
           >
+            {/* Loading indicator */}
             {!eventbriteLoaded && (
               <div
                 className="
@@ -299,11 +315,14 @@ export default function TicketProvider({
               </div>
             )}
 
-            {/* NEVER unmount this container */}
-            <div
-              id={CONTAINER_ID}
-              className="w-full"
-            />
+            {/*
+              DO NOT conditionally render this div.
+
+              Eventbrite creates its iframe inside this element.
+              Keeping it mounted allows the widget to work
+              when the modal is opened multiple times.
+            */}
+            <div id={CONTAINER_ID} className="w-full" />
           </div>
         </div>
       </div>
