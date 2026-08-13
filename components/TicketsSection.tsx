@@ -199,6 +199,7 @@ export default function TicketsSection() {
                   </span>
                 </div>
               </div>
+              
 
               {/* Bullet List */}
               <ul className="mt-8 space-y-3 text-xs font-medium leading-relaxed text-slate-950 sm:text-sm">
