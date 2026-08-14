@@ -8,14 +8,14 @@ const Hero = () => {
   const { openTickets } = useTickets();
   return (
     <section className="hero_section relative w-full bg-[#0b1118] px-4 pt-28 pb-16 text-white sm:px-8 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+      <div className="container">
         
         {/* Title Graphic */}
-        <div className="relative w-full max-w-3xl">
+        <div className="relative w-full">
           <Image
-            src="/images/HeroText.svg"
-            width={761}
-            height={342}
+            src="/images/hero-2.png"
+            width={1374}
+            height={774}
             alt="Granville DJ Festival - The Ultimate Summer Sendoff"
             priority
             className="h-auto w-full object-contain"

@@ -63,17 +63,30 @@ export default function LineupSection() {
           {/* Top Row Grid */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
             {/* Main DJ Crowd Shot */}
-            <div className="relative h-64 overflow-hidden rounded-xl border border-slate-800 md:col-span-6 md:h-80">
-              <Image
-                src="/images/g1.png"
-                alt="DJ performance crowd view"
-                fill
-                className="object-cover"
-              />
+            <div className="relative h-96 md:h-96 overflow-hidden  md:col-span-6">
+              <div className="overflow-hidden h-full border border-slate-800 bg-[#1C272F]">
+                <div className=" bg-linear-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] px-6 py-7">
+                  <h3 className="text-xs font-extrabold tracking-[1.4px] text-black uppercase font-manrope ">
+                    Saturday, September 5
+                  </h3>
+                </div>
+                <ul className="divide-y divide-slate-800/80">
+                  {saturdaySchedule.map((item, index) => (
+                    <li key={index} className="flex items-center gap-6 px-6 py-3.5 text-xs sm:text-sm">
+                      <span className="w-20 shrink-0 font-extrabold  text-blue font-manrope">
+                        {item.time}
+                      </span>
+                      <span className="font-semibold text-textwhite">
+                        {item.details}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Vertical Stage Shot */}
-            <div className="relative h-64 overflow-hidden rounded-xl border border-slate-800 md:col-span-3 md:h-80">
+            <div className="relative h-92 overflow-hidden border border-slate-800 md:col-span-3 md:h-96">
               <Image
                 src="/images/g2.png"
                 alt="DJ performing on stage at night"
@@ -84,7 +97,7 @@ export default function LineupSection() {
 
             {/* Stacked Right Column */}
             <div className="grid grid-cols-1 gap-4 md:col-span-3">
-              <div className="relative h-36 overflow-hidden rounded-xl border border-slate-800 md:h-[152px]">
+              <div className="relative h-36 overflow-hidden  border border-slate-800 md:h-46">
                 <Image
                   src="/images/g3.png"
                   alt="DJ setup close up"
@@ -92,7 +105,7 @@ export default function LineupSection() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative h-36 overflow-hidden rounded-xl border border-slate-800 md:h-[152px]">
+              <div className="relative h-36 overflow-hidden  border border-slate-800 md:h-46">
                 <Image
                   src="/images/g4.png"
                   alt="Street festival night view"
@@ -103,82 +116,67 @@ export default function LineupSection() {
             </div>
           </div>
 
-          {/* Bottom Row Grid */}
+          {/* Middle Row Grid */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-            <div className="relative h-56 overflow-hidden rounded-xl border border-slate-800 md:col-span-4">
+            <div className="relative h-60 w-full md:h-80 overflow-hidden border border-slate-800 md:col-span-6">
               <Image
-                src="/images/g5.png"
+                src="/images/g6.png"
                 alt="Outdoor festival stage"
                 fill
                 className="object-cover"
               />
             </div>
-            <div className="relative h-56 overflow-hidden rounded-xl border border-slate-800 md:col-span-5">
+            <div className="relative h-60 w-full md:h-80 overflow-hidden border border-slate-800 md:col-span-6">
               <Image
-                src="/images/g6.png"
+                src="/images/g5-new.png"
                 alt="Female DJ performing"
                 fill
-                className="object-cover"
+                className=""
               />
             </div>
-            <div className="relative h-56 overflow-hidden rounded-xl border border-slate-800 md:col-span-3">
+
+          </div>
+
+          {/* Bottom Row Grid */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+            
+            <div className="relative h-60 md:h-92 overflow-hidden border border-slate-800 md:col-span-6">
               <Image
-                src="/images/g7.png"
-                alt="Crowd cheering in front of stage"
+                src="/images/g1.png"
+                alt="DJ performance crowd view"
                 fill
                 className="object-cover"
               />
             </div>
+
+
+            <div className="relative h-92 overflow-hidden border border-slate-800 md:col-span-6 ">
+              <div className="overflow-hidden border border-slate-800 bg-[#1C272F]">
+                <div className="bg-linear-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] px-6 py-7">
+                  <h3 className="text-xs font-extrabold tracking-[1.4px] text-black uppercase font-manrope ">
+                    Sunday, September 6
+                  </h3>
+                </div>
+                <ul className="divide-y divide-slate-800/80">
+                  {sundaySchedule.map((item, index) => (
+                    <li key={index} className="flex items-center gap-6 px-6 py-3.5 text-xs sm:text-sm">
+                      <span className="w-20 shrink-0 font-bold font-manrope text-blue">
+                        {item.time}
+                      </span>
+                      <span className="font-semibold text-graywhite">
+                        {item.details}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
           </div>
+
 
         </div>
 
-        {/* Set Times Tables */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          
-          {/* Saturday Column */}
-          <div className="overflow-hidden border border-slate-800 bg-[#1C272F]">
-            <div className=" bg-linear-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] px-6 py-7">
-              <h3 className="text-xs font-extrabold tracking-[1.4px] text-black uppercase font-manrope ">
-                Saturday, September 5
-              </h3>
-            </div>
-            <ul className="divide-y divide-slate-800/80">
-              {saturdaySchedule.map((item, index) => (
-                <li key={index} className="flex items-center gap-6 px-6 py-3.5 text-xs sm:text-sm">
-                  <span className="w-20 shrink-0 font-extrabold  text-blue font-manrope">
-                    {item.time}
-                  </span>
-                  <span className="font-semibold text-textwhite">
-                    {item.details}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Sunday Column */}
-          <div className="overflow-hidden border border-slate-800 bg-[#1C272F] mt-10">
-            <div className="bg-linear-to-r from-[#167FAF] via-[#28A9E0] to-[#69C9EE] px-6 py-7">
-              <h3 className="text-xs font-extrabold tracking-[1.4px] text-black uppercase font-manrope ">
-                Sunday, September 6
-              </h3>
-            </div>
-            <ul className="divide-y divide-slate-800/80">
-              {sundaySchedule.map((item, index) => (
-                <li key={index} className="flex items-center gap-6 px-6 py-3.5 text-xs sm:text-sm">
-                  <span className="w-20 shrink-0 font-bold font-manrope text-blue">
-                    {item.time}
-                  </span>
-                  <span className="font-semibold text-graywhite">
-                    {item.details}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
 
       </div>
     </section>

@@ -116,7 +116,7 @@ export default function AboutFestivalSection() {
             
             <div className="relative overflow-hidden border border-slate-800 shadow-2xl">
               <Image
-                src="/images/aboutFestival.svg"
+                src="/images/about-2.png"
                 alt="Festival stage placeholder"
                 width={570}
                 height={380}
