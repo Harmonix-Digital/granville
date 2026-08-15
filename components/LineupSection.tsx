@@ -7,21 +7,21 @@ interface ScheduleItem {
 }
 
 const saturdaySchedule: ScheduleItem[] = [
-  { time: "2:00 PM", details: "Gates open · Kaya Reyes (Soulful House)" },
-  { time: "3:00 PM", details: "DJ Northshore (Disco & Funk)" },
-  { time: "4:00 PM", details: "Sable Kin (Afro House)" },
-  { time: "6:00 PM", details: "Marcus Tide (Classic Hip-Hop)" },
-  { time: "7:00 PM", details: "Ines Vela (Latin Grooves)" },
-  { time: "8:00 PM", details: "Blue Hour — sunset closing set" },
+  { time: "2:00 PM", details: "JayD" },
+  { time: "3:30 PM", details: "Wreckage" },
+  { time: "4:30 PM", details: "LokoBoy" },
+  { time: "5:30 PM", details: "Zak Santiago" },
+  { time: "6:30 PM", details: "Nicky" },
+  { time: "7:30 PM", details: "Headline Rashed Rawkus" },
 ];
 
 const sundaySchedule: ScheduleItem[] = [
-  { time: "2:00 PM", details: "Gates open · Ravi Sandhu (Bhangra / Global)" },
-  { time: "3:00 PM", details: "Coast Collective (Nu-Disco)" },
-  { time: "4:00 PM", details: "Jules Okonkwo (Afrobeats)" },
-  { time: "6:00 PM", details: "Selector Mei (Throwbacks)" },
-  { time: "7:00 PM", details: "Harbour Sound (Deep House)" },
-  { time: "8:00 PM", details: "Granville All-Stars B2B finale" },
+  { time: "2:00 PM", details: "Meiz" },
+  { time: "3:30 PM", details: "Johnny Awesome" },
+  { time: "4:30 PM", details: "Relly Rels" },
+  { time: "5:30 PM", details: "Prince" },
+  { time: "6:30 PM", details: "Sam Hampton" },
+  { time: "7:30 PM", details: "Headline Ollie Watt" },
 ];
 
 export default function LineupSection() {
@@ -76,7 +76,7 @@ export default function LineupSection() {
                       <span className="w-20 shrink-0 font-extrabold  text-blue font-manrope">
                         {item.time}
                       </span>
-                      <span className="font-semibold text-textwhite">
+                      <span className={`font-semibold  ${index === 5 ? 'text-blue' : 'text-textwhite'}`}>
                         {item.details}
                       </span>
                     </li>
@@ -163,7 +163,7 @@ export default function LineupSection() {
                       <span className="w-20 shrink-0 font-bold font-manrope text-blue">
                         {item.time}
                       </span>
-                      <span className="font-semibold text-graywhite">
+                      <span className={`font-semibold  ${index === 5 ? 'text-blue' : 'text-textwhite'}`}>
                         {item.details}
                       </span>
                     </li>
