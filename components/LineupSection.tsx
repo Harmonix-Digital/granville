@@ -21,7 +21,7 @@ const sundaySchedule: ScheduleItem[] = [
   { time: "4:30 PM", details: "Relly Rels" },
   { time: "5:30 PM", details: "Prince" },
   { time: "6:30 PM", details: "Sam Hampton" },
-  { time: "7:30 PM", details: "Headliner: Olliy Watt" },
+  { time: "7:30 PM", details: "Headliner: Olly Watt" },
 ];
 
 export default function LineupSection() {
