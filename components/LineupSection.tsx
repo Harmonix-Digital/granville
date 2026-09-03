@@ -9,7 +9,7 @@ interface ScheduleItem {
 const saturdaySchedule: ScheduleItem[] = [
   { time: "2:00 PM", details: "JayD" },
   { time: "3:30 PM", details: "Wreckage" },
-  { time: "4:30 PM", details: "LokoBoy" },
+  { time: "4:30 PM", details: "Mads" },
   { time: "5:30 PM", details: "Zak Santiago" },
   { time: "6:30 PM", details: "Nikky" },
   { time: "7:30 PM", details: "Headliner: Rashad Rawkus" },
